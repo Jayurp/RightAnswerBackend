@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
+const cors = require('cors');
 
 const bodyParser = require("body-parser");
 const router = express.Router();
@@ -19,25 +20,26 @@ require("firebase/database");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
-app.use((req, res, next) => {
-  const allowedOrigins = [
-    "http://localhost:4200",
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://localhost:5174",
-  ];
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
+// app.use((req, res, next) => {
+//   const allowedOrigins = [
+//     "http://localhost:4200",
+//     "http://localhost:3000",
+//     "http://localhost:5173",
+//     "http://localhost:5174",
+//   ];
+//   const origin = req.headers.origin;
+//   if (allowedOrigins.includes(origin)) {
+//     res.setHeader("Access-Control-Allow-Origin", origin);
+//   }
 
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 app.listen(4000, () => {
   console.log("Server listening on port 4000");
